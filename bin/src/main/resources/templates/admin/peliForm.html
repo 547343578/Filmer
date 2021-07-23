@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layouts/base-layout :: head"></head>
+<body>
+	
+	<nav th:replace="layouts/base-layout :: nav"></nav>
+	
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-4">
+				<form th:action="@{/admin/save-peli}" th:object="${pelicula}" method="POST" enctype="multipart/form-data">
+					<div class="form-group my-4" >
+						<label>Titulo</label>
+						<input type="text" placeholder="Titulo" th:field="*{titulo}" class="form-control" autocomplete="off"/>
+					
+					</div>
+					
+					<div class="form-group my-4">
+						<label>Fecha de estreno</label>
+						<input type="date" th:field="*{fechaEstreno}" class="form-control"/>
+					
+					</div>
+					
+					<div class="form-group my-4">
+						<label>Portada</label>
+								<input type="file" name="file" class="form-control"/>
+					
+					</div>
+					
+					<div class="form-group">
+						<button type="submit" class="form-control btn btn-secondary">Guardar pelicula</button>
+					</div>
+				
+				</form>
+			</div>
+		</div>
+	</div>
+
+<footer th:replace="Layouts/base-layout :: footer"></footer>
+	
+</body>
+</html>

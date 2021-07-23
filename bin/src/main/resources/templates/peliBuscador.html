@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="Layouts/base-layout :: head"></head>
+<body>
+
+	<nav th:replace="Layouts/base-layout :: nav"></nav>
+
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-6">
+				<h2 th:if="${peliNoEncontrada != null}" th:text="${peliNoEncontrada}"></h2>
+				
+				<div class="row justify-content-start" th:if="${peli !=null}">
+					<div class="col-5">
+						<img th:src="@{'/uploads/' + ${peli.portada}}" th:alt="${peli.portada}" style="width:200px"/>
+					</div>
+					
+					<div class="col-7">
+						<h5 th:if="${peli != null}" th:text="${peli.titulo}"></h5>
+						<span>Estreno : </span><small th:text="${#dates.format(peli.fechaEstreno, 'dd-MM-yyyy')}"></small>
+					
+					
+		 				<div>
+							Reparto:
+							
+							<span th:each="actor:${peli.actores}">
+								<span th:text="${actor.nombre} + ' ' + ${actor.apellidos}"></span>
+							</span>
+						</div>
+						
+						<div class="my-4"></div>
+						
+						<a th:href="@{'/peliculas/cargar-peli-para-comentar/' + ${peli.id}}" class="btn btn-success">Comentar</a>
+						
+						
+						<div class="my-2"></div>
+						
+						<a th:href="@{'/peliculas/ver-comentarios/' + ${peli.id}}" class="btn btn-success">Ver comentarios</a>  
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<footer th:replace="Layouts/base-layout :: footer"></footer>
+
+</body>
+</html>

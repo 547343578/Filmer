@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layouts/base-layout :: head"></head>
+<body>
+
+	<nav th:replace="layouts/base-layout :: nav"></nav>
+
+	<div class="container mt-5">
+		<div class="row justify-content-cemter">
+			<div class="col-6">
+				<form th:action="@{/admin/save-actor}" th:object="${actor}" method="POST">
+					
+					<select th:field="*{pelicula}" class="form-select">
+						<option
+						th:value="${film.id}"
+						th:text="${film.titulo}">
+						</option>
+					</select>
+					
+					<h4 class="text-center mt-5">Actores</h4>
+					
+					<div class="form-group my-2">
+						<input type="text" th:field="*{nombre}" class="form-control" placeholder="Nombre" autocomplete="off"/>
+					</div>
+					
+					<div class="form-group my-2">
+						<input type="text" th:field="*{apellidos}" class="form-control" placeholder="Apellidos" autocomplete="off"/>
+					</div>
+					
+					<div class="form-group my-2">
+						<button type="submit" class="btn btn-secondary form-control">Guardar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+<footer th:replace="Layouts/base-layout :: footer"></footer>
+
+</body>
+</html>

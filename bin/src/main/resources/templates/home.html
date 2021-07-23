@@ -1,0 +1,34 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="layouts/base-layout :: head"></head>
+
+<body>
+	
+	<nav th:replace="layouts/base-layout :: nav"></nav>
+	
+	<div class="alert alert-success text-center" th:if="${comentarioGuardado!=null}" th:text="${comentarioGuardado}"></div>
+	<div class="alert alert-success text-center" th:if="${comentarioModificado!=null}" th:text="${comentarioModificado}"></div>
+	<div class="alert alert-success text-center" th:if="${comentarioEliminado!=null}" th:text="${comentarioEliminado}"></div>
+	
+	
+	<!-- BUSCADOR -->
+	<div th:replace="layouts/searchForm :: search-form"></div>
+	
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="film-container text-center">
+				<div class="galery-item" th:each="item : ${peliculas}">
+					<a th:href="@{/peliculas/ver-comentarios/} +${item.id}">
+						<img th:src="@{'/uploads/'+${item.portada}}" class="img-fluid" style="height:280px"/>
+					</a>
+					<h4 th:text="${item.titulo}"></h4>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<footer th:replace="Layouts/base-layout :: footer"></footer>
+
+</body>
+</html>

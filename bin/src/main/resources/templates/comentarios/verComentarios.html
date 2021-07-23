@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layouts/base-layout :: head"></head>
+<body>
+	
+	<nav th:replace="layouts/base-layout :: nav"></nav>
+	
+	<div class="container mt-5">
+		<div class="row justify-content-start">
+			<div class="col-4">
+				<img th:src="@{'/uploads/' + ${pelicula.portada}}" th:alt="${pelicula.portada}" style="width:100px; height:140px;"/>
+				<h3 th:text="${pelicula.titulo}" class="my-2"></h3>
+				<span th:text="${#dates.format(pelicula.fechaEstreno, 'dd-MM-yyyy')}"></span>
+			
+				<div class="my-4"></div>
+				
+				<div th:each="i:${pelicula.actores}">
+					<small th:text="${i.nombre} + ' ' + ${i.apellidos}"></small>
+				</div>
+				
+				<div class="mt-4">
+					<a th:href="@{'/peliculas/cargar-peli-para-comentar/' + ${pelicula.id}}" class="btn btn-success">
+					Comentar
+					</a>
+				</div>
+				
+				
+			</div>
+			
+			<div class="col-7">
+				<div th:each="comentario:${pelicula.comentarios}">
+					<div class="my-5"></div>
+					<div th:text="${comentario.texto}"></div>
+				
+					<div class="mt-2"></div>
+					<div th:each="i:${comentario.usuario}">
+						<i class="fas fa-user">&nbsp<small th:text="${i.username}"></small></i>
+					</div>
+					
+					<div th:each="i:${comentario.usuario}">
+						<span th:if="${i.username == username}">
+							<a th:href="@{/comentarios/editar-comentario/} + ${comentario.id}" style="text-decoration:none">
+								<button class="btn btn-success"><i class="fas fa-pencil-alt"></i></button>
+							</a>
+							
+							<a th:href="@{/comentarios/eliminar-comentario/} + ${comentario.id}" style="text-decoration:none">
+								<button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+							</a>
+						</span>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+<footer th:replace="Layouts/base-layout :: footer"></footer>
+	
+</body>
+</html>
