@@ -20,7 +20,7 @@ import com.filmer.service.IComentarioService;
 import com.filmer.service.UsuarioService;
 
 @Controller
-@RequestMapping("comentarios")
+@RequestMapping("/comentarios")
 public class ComentarioController {
 
 	@Autowired
@@ -29,13 +29,13 @@ public class ComentarioController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	@GetMapping("editar-comentario/{id}")
+	@GetMapping("/editar-comentario/{id}")
 	public String editarComentarioForm(@PathVariable(name="id")Long id, Model model) {
 		model.addAttribute("comentario", comentarioService.buscarPorId(id));
 		return "comentarios/editarComentarioForm";
 	}
 	
-	@GetMapping("editar")
+	@GetMapping("/editar")
 	public String editar(@ModelAttribute("comentario")Comentario comentario, RedirectAttributes redirect, Authentication auth, HttpSession session) {
 		
 		String username = auth.getName();
@@ -44,15 +44,15 @@ public class ComentarioController {
 		comentarioService.saveComentario(comentario);
 		redirect.addFlashAttribute("comentarioModificado", "Comentario editado");
 		
-		return "redirect:";
+		return "redirect:/";
 	}
 	
-	@GetMapping("eliminar-comentario/{id}")
+	@GetMapping("/eliminar-comentario/{id}")
 	public String eliminar(@PathVariable(name="id")Long id, RedirectAttributes redirect) {
 		
 		comentarioService.eliminarComentario(id);
 		redirect.addFlashAttribute("comentarioEliminado", "Comentario eliminado");
 		
-		return "redirect:";
+		return "redirect:/";
 	}
 }

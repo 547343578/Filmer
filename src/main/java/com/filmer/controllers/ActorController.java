@@ -17,7 +17,7 @@ import com.filmer.service.IActorService;
 import com.filmer.service.IPeliculasService;
 
 @Controller
-@RequestMapping("actors")
+@RequestMapping("/actors")
 @SessionAttributes("peliParaActor")   // la pelicula se queda despues de volver a la pagina
 public class ActorController {
 
@@ -27,7 +27,7 @@ public class ActorController {
 	@Autowired
 	private IPeliculasService peliculasService;
 	
-	@GetMapping("actors-form")
+	@GetMapping("/actors-form")
 	public String actorsForm(Actor actor, RedirectAttributes redirect, Model model, @ModelAttribute("peliParaActor")Pelicula pelicula) {
 		
 		model.addAttribute("actor", new Actor());
@@ -36,16 +36,16 @@ public class ActorController {
 		return "admin/actorsForm";
 	}
 	
-	@PostMapping("save")															// para que sepa que estamos trabajando con esta pelicula que ha pasado desde otro controlador
+	@PostMapping("/save")															// para que sepa que estamos trabajando con esta pelicula que ha pasado desde otro controlador
 	public String saveActors(Actor actor, RedirectAttributes redirect, Model model, @ModelAttribute("peliParaActor")Pelicula pelicula) {
 		
 		actorService.saveActor(actor);
 		redirect.addFlashAttribute("actorGuardado", "Actor guardado con exito");
 		
-		return "redirect:actors/actors-form";
+		return "redirect:/actors/actors-form";
 	}
 	
-	@GetMapping("add-actores/{id}")
+	@GetMapping("/add-actores/{id}")
 	public String addActores(@PathVariable Long id, Model model) {
 
 		Pelicula pelicula = peliculasService.peliculaPorId(id);
