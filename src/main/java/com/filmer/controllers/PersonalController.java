@@ -11,13 +11,13 @@ import com.filmer.entities.Usuario;
 import com.filmer.service.UsuarioService;
 
 @Controller
-@RequestMapping("/personal")
+@RequestMapping("personal")
 public class PersonalController {
 	
 	@Autowired
 	private UsuarioService usuarioService;
 
-	@GetMapping("/{username}")
+	@GetMapping("{username}")
 	public String muestraComentarios(@PathVariable String username, Model model) {
 		Usuario usuario = usuarioService.getByUsername(username).get();
 		model.addAttribute("usuario", usuario);

@@ -23,7 +23,7 @@ import com.filmer.service.IPeliculasService;
 import com.filmer.service.UsuarioService;
 
 @Controller
-@RequestMapping("/peliculas")
+@RequestMapping("peliculas")
 @SessionAttributes("comentario")
 public class PeliculaController {
 	
@@ -36,7 +36,7 @@ public class PeliculaController {
 	@Autowired
 	private IComentarioService comentarioService;
 	
-	@GetMapping("/ver-comentarios/{id}")
+	@GetMapping("ver-comentarios/{id}")
 	public String peli(@PathVariable Long id, Model model, Authentication auth) {
 		
 		if(auth != null) {
@@ -50,7 +50,7 @@ public class PeliculaController {
 		return "comentarios/verComentarios";
 	}
 	
-	@GetMapping("/cargar-peli-para-comentar/{id}")
+	@GetMapping("cargar-peli-para-comentar/{id}")
 	public String peliParaComentar(@PathVariable Long id, Model model) {
 		
 		Pelicula pelicula = peliculasService.peliculaPorId(id);
@@ -64,7 +64,7 @@ public class PeliculaController {
 		return "comentarios/comentarioForm";
 	}
 	
-	@PostMapping("/save-comentario")
+	@PostMapping("save-comentario")
 	public String guardarComentario(Comentario comentario, Authentication auth,
 			HttpSession session, RedirectAttributes redirect) {
 		
@@ -80,7 +80,7 @@ public class PeliculaController {
 		
 		redirect.addFlashAttribute("comentarioGuardado", "Comentario guardado");
 		
-		return "redirect:/";
+		return "redirect:";
 	}
 
 }

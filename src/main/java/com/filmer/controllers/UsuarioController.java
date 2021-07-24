@@ -19,7 +19,7 @@ import com.filmer.service.RolService;
 import com.filmer.service.UsuarioService;
 
 @Controller
-@RequestMapping("/usuario")
+@RequestMapping("usuario")
 public class UsuarioController {
 
 	@Autowired
@@ -31,12 +31,12 @@ public class UsuarioController {
 	@Autowired  // para seguridad de password
 	PasswordEncoder passwordEncoder;
 	
-	@GetMapping("/registro")
+	@GetMapping("registro")
 	public String registrar() {
 		return "registro";
 	}
 	
-	@PostMapping("/save")
+	@PostMapping("save")
 	public String saveUser(String username, String password, RedirectAttributes redirect, Model model) {
 		
 		if(usuarioService.existsByUsername(username)) {
@@ -68,6 +68,6 @@ public class UsuarioController {
 		
 		redirect.addFlashAttribute("usuarioRegistrado", "Registro completado, inicie sesion");
 		
-		return "redirect:/login";
+		return "redirect:login";
 	}
 }

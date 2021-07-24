@@ -23,7 +23,7 @@ import com.filmer.service.IActorService;
 import com.filmer.service.IPeliculasService;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("admin")
 public class AdminController {
 
 	@Autowired
@@ -32,14 +32,14 @@ public class AdminController {
 	@Autowired
 	private IActorService actorService;
 	
-	@GetMapping("/peli-form")
+	@GetMapping("peli-form")
 	public String peliForm(Model model) {
 		
 		model.addAttribute("pelicula", new Pelicula());
 		return "admin/peliForm";
 	}
 	
-	@PostMapping("/save-peli")
+	@PostMapping("save-peli")
 	public String savePeli(@RequestParam(name="file", required = false)MultipartFile portada, Pelicula pelicula, 
 			RedirectAttributes redirect) {
 		
@@ -65,24 +65,24 @@ public class AdminController {
 			
 		}
 		
-		return "redirect:/actors/actors-form";
+		return "redirect:actors/actors-form";
 	}
 	
-	@GetMapping("/gestion-peliculas")
+	@GetMapping("gestion-peliculas")
 	public String listadoPeliculas(Model model) {
 		model.addAttribute("peliculas", peliculasService.listadoPeliculas());
 		
 		return "admin/gestionPeliculas";
 	}
 	
-	@GetMapping("/eliminar-pelicula/{id}")
+	@GetMapping("eliminar-pelicula/{id}")
 	public String eliminarPelicula(@PathVariable Long id, RedirectAttributes redirect) {
 		peliculasService.eliminarPelicula(id);
 		redirect.addFlashAttribute("peliEliminada", "Pelicula eliminada");
-		return "redirect:/admin/gestion-peliculas";
+		return "redirect:admin/gestion-peliculas";
 	}
 	
-	@GetMapping("/editar-form/{id}")
+	@GetMapping("editar-form/{id}")
 	public String editarFormulario(@PathVariable Long id, Model model) {
 		
 		Pelicula pelicula = null;
@@ -94,7 +94,7 @@ public class AdminController {
 		return "admin/editarPelicula";
 	}
 	
-	@PostMapping("/editar-pelicula")
+	@PostMapping("editar-pelicula")
 	public String editarPelicula(@RequestParam(name="file")MultipartFile portada, Pelicula peli, RedirectAttributes redirect,
 			@ModelAttribute("pelicula")Pelicula pelicula, Model model) {
 		
@@ -123,10 +123,10 @@ public class AdminController {
 			
 		}
 		
-		return "redirect:/admin/gestion-peliculas";
+		return "redirect:admin/gestion-peliculas";
 	}
 	
-	@GetMapping("/editar-actores{id}")
+	@GetMapping("editar-actores{id}")
 	public String editarActores(@PathVariable Long id, Model model) {
 		
 		Pelicula peliculaById = peliculasService.peliculaPorId(id);
@@ -135,7 +135,7 @@ public class AdminController {
 		return "admin/edicionActores";
 	}
 	
-	@GetMapping("/cargar-actor/{id}")
+	@GetMapping("cargar-actor/{id}")
 	public String cargarActor(@PathVariable Long id, Model model) {
 		Actor actor = actorService.obtenerActor(id);
 		model.addAttribute("actor", actor);
@@ -143,31 +143,31 @@ public class AdminController {
 		return "admin/editarActorForm";
 	}
 	
-	@PostMapping("/editar-actor")
+	@PostMapping("editar-actor")
 	public String editarActor(@ModelAttribute("actor")Actor actor, RedirectAttributes redirect) {
 		
 		actorService.saveActor(actor);
 		redirect.addFlashAttribute("actorEditado", "Actor modificado");
 		
-		return "redirect:/admin/gestion-peliculas";
+		return "redirect:admin/gestion-peliculas";
 	}
 	
-	@GetMapping("/eliminar-actor/{id}")
+	@GetMapping("eliminar-actor/{id}")
 	public String eliminarActor(@PathVariable Long id, RedirectAttributes redirect) {
 		
 		actorService.eliminarActor(id);
 		redirect.addFlashAttribute("actorEliminado", "Actor eliminado");
 		
-		return "redirect:/admin/gestion-peliculas";
+		return "redirect:admin/gestion-peliculas";
 	}
 	
-	@PostMapping("/save-actor")															
+	@PostMapping("save-actor")															
 	public String saveActors(Actor actor, RedirectAttributes redirect, Model model) {
 		
 		actorService.saveActor(actor);
 		redirect.addFlashAttribute("actorGuardado", "Actor guardado con exito");
 		
-		return "redirect:/admin/gestion-peliculas";
+		return "redirect:admin/gestion-peliculas";
 	}
 	
 }

@@ -36,7 +36,7 @@ public class HomeController {
 		return "home";
 	}
 	
-	@GetMapping("/buscar")		// Parametro de la url      // recibe "pelicula" y almacena en new pelicula
+	@GetMapping("buscar")		// Parametro de la url      // recibe "pelicula" y almacena en new pelicula
 	public String buscarPelicula(@RequestParam String titulo, @ModelAttribute("pelicula")Pelicula pelicula, Model model) {
 		
 		Pelicula peli = peliculasService.peliPorTitulo(titulo);
