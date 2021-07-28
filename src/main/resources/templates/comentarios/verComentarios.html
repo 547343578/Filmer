@@ -30,7 +30,7 @@
 			<div class="col-7">
 				<div th:each="comentario:${pelicula.comentarios}">
 					<div class="my-5"></div>
-					<div th:text="${comentario.texto}"></div>
+					<div th:text="${comentario.texto}" class="border border-dark rounded border-2"></div>
 				
 					<div class="mt-2"></div>
 					<div th:each="i:${comentario.usuario}">
