@@ -25,7 +25,6 @@ public class ComentarioController {
 
 	@Autowired
 	private IComentarioService comentarioService;
-	
 	@Autowired
 	private UsuarioService usuarioService;
 	
@@ -37,22 +36,18 @@ public class ComentarioController {
 	
 	@GetMapping("/editar")
 	public String editar(@ModelAttribute("comentario")Comentario comentario, RedirectAttributes redirect, Authentication auth, HttpSession session) {
-		
 		String username = auth.getName();
 		Optional<Usuario> usuario = usuarioService.getByUsername(username);
 		comentario.setUsuario(usuario.get());
 		comentarioService.saveComentario(comentario);
 		redirect.addFlashAttribute("comentarioModificado", "Comentario editado");
-		
 		return "redirect:/";
 	}
 	
 	@GetMapping("/eliminar-comentario/{id}")
 	public String eliminar(@PathVariable(name="id")Long id, RedirectAttributes redirect) {
-		
 		comentarioService.eliminarComentario(id);
 		redirect.addFlashAttribute("comentarioEliminado", "Comentario eliminado");
-		
 		return "redirect:/";
 	}
 }

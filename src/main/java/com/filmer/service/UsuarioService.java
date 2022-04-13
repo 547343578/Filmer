@@ -11,12 +11,10 @@ import com.filmer.entities.Usuario;
 
 @Service
 public class UsuarioService {
-
 	@Autowired
 	private IUsuarioDAO usuarioDao;
 	
 	public List<Usuario> listadoUsuarios(){
-		
 		return usuarioDao.findAll();
 	}
 	

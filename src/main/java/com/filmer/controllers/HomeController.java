@@ -17,20 +17,17 @@ public class HomeController {
 
 	@Autowired
 	private IPeliculasService peliculasService;
-	
 	@Autowired
 	private UsuarioService usuarioService;
 	
 	@GetMapping("")
 	public String home(Model model, Authentication auth) {
-		
 		if(auth != null) {
 			String username = auth.getName();
 			Long id = usuarioService.getByUsername(username).get().getId();
 			model.addAttribute("username", username);
 			model.addAttribute("id", id);
 		}
-		
 		model.addAttribute("peliculas", peliculasService.listadoPeliculas());
 		model.addAttribute("pelicula", new Pelicula());		
 		return "home";
@@ -38,19 +35,13 @@ public class HomeController {
 	
 	@GetMapping("/buscar")		// Parametro de la url      // recibe "pelicula" y almacena en new pelicula
 	public String buscarPelicula(@RequestParam String titulo, @ModelAttribute("pelicula")Pelicula pelicula, Model model) {
-		
 		Pelicula peli = peliculasService.peliPorTitulo(titulo);
-		
 		if(titulo != null) {
 			model.addAttribute("peli", peli);
 		}
-		
 		if(peli == null) {
 			model.addAttribute("peliNoEncontrada", "Sin resultados...");
 		}
-		
 		return "peliBuscador";
 	}
-	
-	
 }

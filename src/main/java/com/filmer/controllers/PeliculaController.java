@@ -29,10 +29,8 @@ public class PeliculaController {
 	
 	@Autowired
 	private IPeliculasService peliculasService;
-	
 	@Autowired
 	private UsuarioService usuarioService;
-	
 	@Autowired
 	private IComentarioService comentarioService;
 	
@@ -52,35 +50,23 @@ public class PeliculaController {
 	
 	@GetMapping("/cargar-peli-para-comentar/{id}")
 	public String peliParaComentar(@PathVariable Long id, Model model) {
-		
 		Pelicula pelicula = peliculasService.peliculaPorId(id);
-		
 		Comentario comentario = new Comentario();
 		comentario.setPelicula(pelicula);
-		
 		model.addAttribute("comentario", comentario);
 		model.addAttribute("pelicula", pelicula);
-		
 		return "comentarios/comentarioForm";
 	}
 	
 	@PostMapping("/save-comentario")
 	public String guardarComentario(Comentario comentario, Authentication auth,
 			HttpSession session, RedirectAttributes redirect) {
-		
 		String username = auth.getName();
-		
 		Optional<Usuario> usuario = usuarioService.getByUsername(username);
-		
 		//System.out.println(usuario.get().getUsername());
-		
 		comentario.setUsuario(usuario.get());
-		
 		comentarioService.saveComentario(comentario);
-		
 		redirect.addFlashAttribute("comentarioGuardado", "Comentario guardado");
-		
 		return "redirect:/";
 	}
-
 }

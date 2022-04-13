@@ -12,5 +12,4 @@ public class UploadFilesConfig implements WebMvcConfigurer{
 		registry.addResourceHandler("/uploads/**").addResourceLocations("file:/C:/Temp/uploads/");
 	}
 
-	
 }

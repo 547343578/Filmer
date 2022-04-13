@@ -24,13 +24,11 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioService usuarioService;
-	
 	@Autowired
 	private RolService rolService;
-	
 	@Autowired  // para seguridad de password
 	PasswordEncoder passwordEncoder;
-	
+
 	@GetMapping("/registro")
 	public String registrar() {
 		return "registro";
@@ -38,26 +36,20 @@ public class UsuarioController {
 	
 	@PostMapping("/save")
 	public String saveUser(String username, String password, RedirectAttributes redirect, Model model) {
-		
 		if(usuarioService.existsByUsername(username)) {
 			model.addAttribute("usuarioRepetido", "El usuario ya existe");
 			return "registro";
 		}
-		
 		if(username == "" || password == "") {
 			model.addAttribute("camposVacios", "Los campos no pueden estar vacios");
 			return "registro";
 		}
-		
 		Usuario usuario = new Usuario();
 		usuario.setUsername(username);
-		
 		//para mas seguridad
 		usuario.setPassword(passwordEncoder.encode(password));
-		
 		Rol rolUser = rolService.getByRolNombre(RolNombre.ROLE_USER).get();
 		//Rol rolAdmin = rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get();
-		
 		Set<Rol> roles = new HashSet<Rol>();
 		roles.add(rolUser);
 		//roles.add(rolAdmin);
@@ -65,9 +57,8 @@ public class UsuarioController {
 		usuario.setRoles(roles);
 		// guardar usuario en la bbdd
 		usuarioService.guardarUsuario(usuario);
-		
 		redirect.addFlashAttribute("usuarioRegistrado", "Registro completado, inicie sesion");
-		
 		return "redirect:/login";
 	}
+
 }

@@ -23,35 +23,28 @@ public class ActorController {
 
 	@Autowired
 	private IActorService actorService;
-	
 	@Autowired
 	private IPeliculasService peliculasService;
-	
+
 	@GetMapping("/actors-form")
 	public String actorsForm(Actor actor, RedirectAttributes redirect, Model model, @ModelAttribute("peliParaActor")Pelicula pelicula) {
-		
 		model.addAttribute("actor", new Actor());
 		model.addAttribute("film",pelicula);
-		
 		return "admin/actorsForm";
 	}
 	
 	@PostMapping("/save")															// para que sepa que estamos trabajando con esta pelicula que ha pasado desde otro controlador
 	public String saveActors(Actor actor, RedirectAttributes redirect, Model model, @ModelAttribute("peliParaActor")Pelicula pelicula) {
-		
 		actorService.saveActor(actor);
 		redirect.addFlashAttribute("actorGuardado", "Actor guardado con exito");
-		
 		return "redirect:/actors/actors-form";
 	}
 	
 	@GetMapping("/add-actores/{id}")
 	public String addActores(@PathVariable Long id, Model model) {
-
 		Pelicula pelicula = peliculasService.peliculaPorId(id);
 		model.addAttribute("actor", new Actor());
 		model.addAttribute("film", pelicula);
-		
 		return "admin/addActoresForm";
 	}
 	

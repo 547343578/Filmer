@@ -12,11 +12,11 @@ import com.filmer.entities.Usuario;
 
 public class UsuarioPrincipal implements UserDetails{
 
-	private Long id;
-	private String username;
-	private String password;
+	private final Long id;
+	private final String username;
+	private final String password;
 	
-	private Collection<? extends GrantedAuthority> authorities;
+	private final Collection<? extends GrantedAuthority> authorities;
 	
 	
 	

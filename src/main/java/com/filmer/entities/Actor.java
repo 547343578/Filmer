@@ -72,8 +72,6 @@ public class Actor {
 	public void setPelicula(Pelicula pelicula) {
 		this.pelicula = pelicula;
 	}
-	
-	
-	
+
 	
 }
